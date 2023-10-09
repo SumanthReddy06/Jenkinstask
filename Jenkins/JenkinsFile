@@ -1,19 +1,36 @@
 pipeline {
     agent any
-    environment {
-		DOCKERHUB_CREDENTIALS=credentials('Docker')
-	}
 
     stages {
-        stage('Build and Deploy') {
+        stage('Checkout') {
             steps {
-
-                
-                sh 'sudo docker build -t sumanth1206/helloworld:v1 .'
-		        sh 'sudo chmod 666 /var/run/docker.sock'
-                sh 'docker push sumanth1206/helloworld:v1'
-        }      
+                // Cloning the repository
+                checkout scm
+            }
         }
-        
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Build the Docker image using the Dockerfile in the repository
+                    sh 'docker build -t sumanth1206/docker Jenkins/'
+                }
+            }
+        }
+
+        stage('Push to Docker Hub') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'DockerKey', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
+                        // Login to Docker Hub
+                         sh "docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD"
+
+                        // Push the Docker image to Docker Hub
+                        sh 'docker push sumanth1206/docker'
+                    }
+                }
+            }
+        }
     }
+
 }
