@@ -14,7 +14,7 @@ pipeline {
                 script {
                     
                     // Build the Docker image using the Dockerfile in the repository
-                    sh 'docker build -t sumanth1206/helloworld .'
+                    sh 'docker build -t sumanth1206/bajjuri .'
                 }
             }
         }
@@ -27,7 +27,7 @@ pipeline {
                          sh "docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD"
 
                         // Push the Docker image to Docker Hub
-                        sh 'docker push sumanth1206/helloworld'
+                        sh 'docker push sumanth1206/bajjuri'
                     }
                 }
             }
