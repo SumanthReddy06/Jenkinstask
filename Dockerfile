@@ -1,6 +1,6 @@
 FROM node:20-alpine
 
-WORKDIR /bajjuri/app/
+WORKDIR /sumanth/app/
 
 COPY package.json .
 COPY sumanth.js .
