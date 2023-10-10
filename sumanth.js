@@ -7,5 +7,5 @@ app.get('/sumanth', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`praneeth app listening on port ${port}`)
+  console.log(`sumanth app listening on port ${port}`)
 })
